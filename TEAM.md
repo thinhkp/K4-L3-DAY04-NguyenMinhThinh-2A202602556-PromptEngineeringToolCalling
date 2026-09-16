@@ -4,18 +4,17 @@
 
 ## Thông tin bài nộp
 
-- Tên nhóm:
-- Người đại diện / MSSV:
+- Tên nhóm: deltaX
+- Người đại diện / MSSV: Nguyễn Minh Thịnh / 2A202602556
 - Tên repo: `K4-L3-DAY04-HoVaTen-MSSV-PromptEngineeringToolCalling`
-- URL repo, nhánh nộp, commit chốt:
-- Deadline áp dụng và link thông báo đổi hạn nếu có:
+- URL repo, nhánh nộp, commit chốt: 
+- Deadline áp dụng và link thông báo đổi hạn nếu có: 
 
 ## Thành viên
 
 | Họ và tên | MSSV | GitHub | Vai trò và công việc | File/commit/PR |
 |---|---|---|---|---|
-| | | | | |
-
+|Nguyễn Minh Thịnh |2A202602556 | | | |
 ## Nhận xét chung
 
 - Kết quả và bằng chứng:

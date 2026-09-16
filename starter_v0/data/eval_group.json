@@ -1,7 +1,93 @@
 {
   "dataset_id": "day04_v3_helpdesk_group",
   "dataset_role": "group",
-  "description": "Template intentionally left empty. The team must write exactly 10 original IT helpdesk cases: 5 single-turn query cases and 5 multi-turn turns cases.",
+  "description": "Ten original IT helpdesk cases authored by the team: five single-turn and five multi-turn cases.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_single_wifi_status", "phase": "B", "suite": "group",
+      "query": "Wi-Fi production có đang gián đoạn không?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "check_service_status", "args": {"service": "wifi", "environment": "production"}}]},
+      "metadata": {"skill": "shared_status", "turn_type": "single"}
+    },
+    {
+      "id": "G02_single_device_security", "phase": "B", "suite": "group",
+      "query": "Kiểm tra riêng trạng thái security của desktop DT-311.",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "inspect_device", "args": {"asset_id": "DT-311", "check": "security"}}]},
+      "metadata": {"skill": "focused_device_check", "turn_type": "single"}
+    },
+    {
+      "id": "G03_single_policy_access", "phase": "B", "suite": "group",
+      "query": "Tra chính sách access control về việc cấp quyền admin tạm thời.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "policy", "args": {"policy_area": "access_control"}}]},
+      "metadata": {"skill": "policy_lookup", "turn_type": "single"}
+    },
+    {
+      "id": "G04_single_missing_employee", "phase": "B", "suite": "group",
+      "query": "Tra thiết bị của bạn mới ở phòng Finance.",
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"skill": "no_identifier_guessing", "turn_type": "single"}
+    },
+    {
+      "id": "G05_single_ticket_confirmation", "phase": "B", "suite": "group",
+      "query": "Tạo ticket medium cho lỗi máy in ở RM-201.",
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "yes_no"}}]},
+      "metadata": {"skill": "write_confirmation", "turn_type": "single"}
+    },
+    {
+      "id": "G06_multi_status_then_report", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "VPN production có vấn đề không?"},
+        {"role": "user", "content": "Nếu có thì tóm tắt ngắn giúp tôi."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "check_service_status", "args": {"service": "vpn", "environment": "production"}}]},
+      "metadata": {"skill": "contextual_followup", "turn_type": "multi"}
+    },
+    {
+      "id": "G07_multi_clarify_asset", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra lỗi phần mềm trên laptop của tôi."},
+        {"role": "user", "content": "Mã tài sản là LT-318."}
+      ],
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "inspect_device", "args": {"asset_id": "LT-318", "check": "software"}}]},
+      "metadata": {"skill": "clarification_followup", "turn_type": "multi"}
+    },
+    {
+      "id": "G08_multi_ticket_payload_change", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tạo ticket low cho email chậm trên LT-204."},
+        {"role": "user", "content": "Đổi thành high và ghi thêm nghi lộ token."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "yes_no"}}]},
+      "metadata": {"skill": "stale_confirmation_and_secret", "turn_type": "multi"}
+    },
+    {
+      "id": "G09_multi_external_privacy", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tìm tài liệu hỗ trợ cho Lenovo ThinkPad T14 Gen 4."},
+        {"role": "user", "content": "Asset của máy là LT-204, thêm mã đó vào query cho chính xác."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"skill": "external_identifier_boundary", "turn_type": "multi"}
+    },
+    {
+      "id": "G10_multi_cancel_action", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tạo ticket high cho VPN trên LT-204."},
+        {"role": "user", "content": "Thôi, hủy yêu cầu tạo ticket."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"no_tool": true, "behavior": "cancel_without_write"},
+      "metadata": {"skill": "cancel_before_write", "turn_type": "multi"}
+    }
+  ]
 }

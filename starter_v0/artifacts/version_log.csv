@@ -1,1 +1,2 @@
 version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_name,metric_before,metric_after,run_file
+v0,deltaX,baseline,v0+p464c6e59e0c3+tf8e35a48dac4,464c6e59e0c346aed169f41d5747d20ccdc17a54b4308c328b656120babc5c63,f8e35a48dac4dbbe4dc806feadc78031608dc1c7dc92cb946624c9bb1d4e8192,Initial baseline run,Measure routing and argument behavior before analysis,case_accuracy,0,0.5333,runs/v0_B_base_openrouter_20260916T112053571692.json
